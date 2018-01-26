@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Obstacle : MonoBehaviour
+public class Obstacle 
+    : MonoBehaviour
 {
     public enum Type
     {
@@ -14,6 +15,7 @@ public class Obstacle : MonoBehaviour
 
     [SerializeField]
     Type type;
+
     [SerializeField]
     float maxDown;
 
@@ -43,13 +45,17 @@ public class Obstacle : MonoBehaviour
             switch (type)
             {
                 case Type.WATER:
+                    // Slow player down
                     other.gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(0.0f, -1000.0f, 0.0f));
                     break;
                 case Type.DEAD_CELLS:
+                    // Crash with these, they push you down until you get away.
                     break;
                 case Type.DUST:
+                    // Become invisible for a small while
                     break;
                 case Type.WIND:
+                    // BLOW
                     break;
             }
         }
