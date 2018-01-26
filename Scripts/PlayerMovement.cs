@@ -12,14 +12,14 @@ public class PlayerMovement : MonoBehaviour {
   public float leftSpeed;
   public float rightSpeed;   
   public float thrust;
-	// Use this for initialization
-	void Start () {
+  // Use this for initialization
+  void Start () {
     rb = GetComponent<Rigidbody>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		if (Input.GetKey("up")) {
+  }
+  
+  // Update is called once per frame
+  void Update () {
+    if (Input.GetKey("up")) {
       rb.AddForce(transform.up * thrust);
     }
 
@@ -39,5 +39,5 @@ public class PlayerMovement : MonoBehaviour {
     if (Input.GetKey("right")) { 
       rb.velocity = new Vector3(rightSpeed, rb.velocity.y, 0.0f);
     }
-	}
+  }
 }
