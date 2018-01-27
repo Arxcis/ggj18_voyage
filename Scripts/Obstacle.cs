@@ -37,6 +37,9 @@ public class Obstacle
     int currSprite;
     int spriteOffset;
 
+    // Only for DEAD_CELL
+    Vector3 rotationVec;
+
     // Use this for initialization
     void Start()
     {
@@ -53,6 +56,11 @@ public class Obstacle
         else
         {
             rb = gameObject.GetComponent<Rigidbody>();
+        }
+
+        if (type == Type.DEAD_CELL)
+        {
+            rotationVec = new Vector3(-1.0f, 0.5f, 0.0f);
         }
     }
 
@@ -74,6 +82,12 @@ public class Obstacle
                 animationTimer = 0.0f;
             }
         }
+
+        if (type == Type.DEAD_CELL)
+        {
+            gameObject.transform.Rotate(rotationVec);
+        }
+        
     }
 
     private void OnTriggerEnter(Collider other)
