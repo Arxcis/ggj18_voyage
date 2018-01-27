@@ -132,5 +132,11 @@ public class Player : MonoBehaviour
             Game game = FindObjectOfType<Game>();
             game.GameOver();
         }
+
+        if (other.gameObject.CompareTag("goal"))
+        {
+            Game game = FindObjectOfType<Game>();
+            game.NextScene();
+        }
     }
 }
