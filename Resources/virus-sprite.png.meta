@@ -1,13 +1,13 @@
 fileFormatVersion: 2
 guid: 985dbeab8735a492cb9ec74a81c570b8
-timeCreated: 1517061977
+timeCreated: 1517070140
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
     21300000: virus-sprite-2
-    21300002: virus-sprites-3
-    21300004: virus-sprites-0
-    21300006: virus-sprites-1
+    21300002: virus-sprite-3
+    21300004: virus-sprite-0
+    21300006: virus-sprite-1
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -98,7 +98,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: virus-sprites-3
+      name: virus-sprite-3
       rect:
         serializedVersion: 2
         x: 1498
@@ -112,7 +112,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: virus-sprites-0
+      name: virus-sprite-0
       rect:
         serializedVersion: 2
         x: 49
@@ -126,10 +126,10 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: virus-sprites-1
+      name: virus-sprite-1
       rect:
         serializedVersion: 2
-        x: 1456
+        x: 1446
         y: 266
         width: 459
         height: 1446
