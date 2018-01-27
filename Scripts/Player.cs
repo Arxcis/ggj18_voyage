@@ -23,7 +23,6 @@ public class Player : MonoBehaviour
     public float rightSpeed;
     public float thrust;
 
-    Vector3 controlsVec;
     Vector3 windVec;
 
     // Use this for initialization
@@ -37,7 +36,6 @@ public class Player : MonoBehaviour
         wetScale = 1.0f;
 
         windVec = new Vector3();
-        controlsVec = new Vector3();
     }
 
     // Update is called once per frame
@@ -125,5 +123,14 @@ public class Player : MonoBehaviour
         windVec.x = 0.0f;
         windVec.y = 0.0f;
         windVec.z = 0.0f;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("border"))
+        {
+            Game game = FindObjectOfType<Game>();
+            game.GameOver();
+        }
     }
 }
