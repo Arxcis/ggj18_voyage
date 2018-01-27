@@ -52,7 +52,6 @@ public class Game
     // Update is called once per frame
     void Update()
     {
-
         if (Input.GetKeyDown(KeyCode.Q))
         {
             Debug.Log("key Q");
@@ -63,19 +62,6 @@ public class Game
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            Debug.Log("key R");
-
-            // Load current scene
-            // @doc https://answers.unity.com/questions/802253/how-to-restart-scene-properly.html - 27.01.18
-            //Application.LoadLevel(Application.loadedLevel);
-
-            // Load specific scene
-            // @doc https://answers.unity.com/questions/1286832/restarting-scene.html - 27.01.18
-            /*
-            SceneManager.LoadScene("YourScene");
-            Debug.Log("Scene Restarted");
-            */
-
             currScene--;
             NextScene();
         }

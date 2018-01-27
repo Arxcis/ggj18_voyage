@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// TODO: Add checks to ensure player stays within "screen"
-
 public class Player : MonoBehaviour
 {
     float invisibleTimeout;
