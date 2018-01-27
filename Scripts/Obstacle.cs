@@ -7,32 +7,55 @@ public class Obstacle
 {
     public enum Type
     {
-        WATER,
-        DUST,
-        DEAD_CELLS,
+        WATER, // Fast
+        DUST, // Medium
+        DEAD_CELL, // Slow
         WIND // Unsure if this belongs here
+    }
+
+    public enum WindDirection
+    {
+        LEFT,
+        RIGHT,
     }
 
     [SerializeField]
     Type type;
 
     [SerializeField]
+    WindDirection windDirection;
+
+    [SerializeField]
     float maxDown;
 
-
     Rigidbody rb;
+//    SphereCollider sc;
 
 
     // Use this for initialization
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody>();
+
+        if (type == Type.DEAD_CELL)
+        {
+            gameObject.GetComponent<SphereCollider>().isTrigger = false;
+
+            // Hack for dealing with to powerful player.
+            rb.mass = 100;
+        }
+        
+        if (type == Type.WIND)
+        {
+            //gameObject.GetComponent<Rigidbody>().isKinematic = false;
+            gameObject.GetComponent<Rigidbody>().useGravity = false;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (rb.velocity.y < -maxDown)
+        if (rb.velocity.y < -maxDown && type != Type.WIND)
         {
             rb.velocity = new Vector3(0.0f, -maxDown, 0.0f);
         }
@@ -42,22 +65,31 @@ public class Obstacle
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            switch (type)
+            Player player = other.gameObject.GetComponent<Player>();
+
+            if (type == Type.WATER)
+                player.MakeWet();
+            else if (type == Type.DUST)
+                player.MakeInvisible();
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player") && type == Type.WIND)
+        {
+            float windForce = 100.0f;
+            Rigidbody player = other.gameObject.GetComponent<Rigidbody>();
+            if (windDirection == WindDirection.LEFT)
             {
-                case Type.WATER:
-                    // Slow player down
-                    other.gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(0.0f, -1000.0f, 0.0f));
-                    break;
-                case Type.DEAD_CELLS:
-                    // Crash with these, they push you down until you get away.
-                    break;
-                case Type.DUST:
-                    // Become invisible for a small while
-                    break;
-                case Type.WIND:
-                    // BLOW
-                    break;
+                player.AddForce(new Vector3(-windForce, 0.0f));
             }
+            else
+            {
+                player.AddForce(new Vector3(windForce, 0.0f));
+            }
+
         }
     }
 }
+
