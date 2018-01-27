@@ -21,12 +21,6 @@ public class Player : MonoBehaviour
     public float rightSpeed;
     public float thrust;
 
-    public float dftMaxSpeedUp;
-    public float dftMaxSpeedDown;
-    public float dftLeftSpeed;
-    public float dftRightSpeed;
-
-
     // Use this for initialization
     void Start()
     {
