@@ -5,20 +5,18 @@ using UnityEngine;
 public class TakeOff : MonoBehaviour {
 
     private GameObject player;
-    private GameObject petriDish;
-    private GameObject petriDishGround;
-    private GameObject level1Button; 
-    private GameObject level1Arrow;
+    private GameObject particle; 
+
+    private float timeElapsed;
 
     private bool exploded = false;
 
+    delegate void DestroyMeIn(int num);
+
     // Use this for initialization
     void Start () {
-        player          = GameObject.FindWithTag("Player");
-        petriDish       = GameObject.FindWithTag("petri-dish");
-        petriDishGround = GameObject.FindWithTag("petri-dish-ground");
-        level1Button    = GameObject.FindWithTag("level1-button");
-        level1Arrow     = GameObject.FindWithTag("level1-arrow");
+        player   = GameObject.FindWithTag("Player");
+        particle = GameObject.FindWithTag("explosion-particle");
     }
     
     // Update is called once per frame
@@ -27,13 +25,22 @@ public class TakeOff : MonoBehaviour {
         if (Input.GetKeyDown("up") && !exploded) {
 
             Rigidbody rbplayer = player.GetComponent<Rigidbody>();
+            rbplayer.velocity = new Vector3(0.0f, 10.0f, 0.0f);
+            exploded = true;
 
-            rbplayer.AddForce(new Vector3(0.0f, 500.0f, 0.0f));
-            petriDish.SetActive(false);
-            petriDishGround.SetActive(false);
-            level1Button.SetActive(false); 
-            level1Arrow.SetActive(false);
+            for (int i = 0; i < 100; ++i) {
+                GameObject clone = Object.Instantiate(particle);
+                clone.SetActive(true);
+                clone.GetComponent<Rigidbody>().velocity = new Vector3(Random.Range(-10.0f, 10.0f), Random.Range(0.0f, 20.0f), Random.Range(-10.0f, 10.0f));
+            }
+            timeElapsed = 0.0f;
+        }
+    
+
+        if (exploded && timeElapsed > 0.5f) {
+            Destroy(gameObject);
         }
 
+        timeElapsed += Time.deltaTime;
     }
 }
