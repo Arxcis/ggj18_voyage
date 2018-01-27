@@ -25,6 +25,7 @@ public class Game
     {
         helpMenu = GameObject.FindGameObjectWithTag("help-menu");
         pauseMenu = GameObject.FindGameObjectWithTag("pause-menu");
+
         helpMenu.SetActive(false);
         pauseMenu.SetActive(false);
 
@@ -66,6 +67,9 @@ public class Game
             SceneManager.LoadScene("YourScene");
             Debug.Log("Scene Restarted");
             */
+
+            currScene--;
+            NextScene();
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
