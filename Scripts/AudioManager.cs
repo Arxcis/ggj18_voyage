@@ -20,7 +20,6 @@ public class AudioManager
 
     public void Awake()
     {
-        Debug.Log("In awake");
         musicSource = gameObject.AddComponent<AudioSource>();
         musicSource.loop = true;
         musicSource.mute = true;
@@ -33,12 +32,7 @@ public class AudioManager
         {
             if (value != MusicTrack.None)
             {
-                Debug.Log("Loading track");
                 var val = Resources.Load<AudioClip>(value.ToString());
-                if (!val)
-                {
-                    Debug.Log("Fuck");
-                }
                 musicTracks[value] = val;
             }
         }
@@ -55,7 +49,6 @@ public class AudioManager
     {
         if (track != currentMusicTrack)
         {
-            Debug.Log("Play Music");
             currentMusicTrack = track;
 
             musicSource.Stop();
