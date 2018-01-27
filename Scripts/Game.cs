@@ -1,4 +1,5 @@
-﻿using UnityEngine.SceneManagement;
+﻿using System;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class Game
@@ -9,14 +10,14 @@ public class Game
     private bool paused = false;
 
     AudioManager audioManager;
+    Game instance;
 
     static bool initialized = false;
 
-    string[] scenes = new string[] { "splash", "level_1_intro", "level_1", "level_2_intro",  "level_2", "outro"};
+    string[] scenes = new string[] { "splash", "level_1", "level_2_intro", "level_2", "outro" };
     AudioManager.MusicTrack[] tracks = new AudioManager.MusicTrack[]
     {
         AudioManager.MusicTrack.Menu,
-        AudioManager.MusicTrack.Level_1,
         AudioManager.MusicTrack.Level_1,
         AudioManager.MusicTrack.Level_1,
         AudioManager.MusicTrack.Level_1,
@@ -35,18 +36,41 @@ public class Game
     {
         helpMenu = GameObject.FindGameObjectWithTag("help-menu");
         pauseMenu = GameObject.FindGameObjectWithTag("pause-menu");
-
-        helpMenu.SetActive(false);
-        pauseMenu.SetActive(false);
-
-        audioManager = FindObjectOfType<AudioManager>();
-        audioManager.PlayMusic(tracks[currScene]);
-
         if (!initialized)
         {
-            initialized = true;
-            Debug.Log("Initialized");
+            instance = this;
+            audioManager = gameObject.AddComponent<AudioManager>();
+            audioManager.PlayMusic(tracks[currScene]);
+
+            if (!initialized)
+            {
+                initialized = true;
+                Debug.Log("Initialized");
+            }
+
+            DontDestroyOnLoad(gameObject);
         }
+
+        if (this != instance)
+        {
+            Destroy(this);
+        }
+    }
+
+    void Awake()
+    {
+        helpMenu = GameObject.FindGameObjectWithTag("help-menu");
+        pauseMenu = GameObject.FindGameObjectWithTag("pause-menu");
+
+        try
+            {
+                helpMenu.SetActive(false);
+                pauseMenu.SetActive(false);
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning("Could not setActive help and pausemenu");
+            }
     }
 
     // Update is called once per frame
@@ -129,6 +153,7 @@ public class Game
         Debug.Log("NextScene!");
         currScene++;
         sceneTimeout = 3.0f;
+        audioManager.PlayMusic(tracks[currScene]);
         GotoScene(scenes[currScene]);
     }
 
@@ -148,7 +173,7 @@ public class Game
         }
 
         // All scenes that require interactions happens to be divisable by 2.
-        if (currScene % 2 != 0 && sceneTimeout <= 0.0f)
+        if (currScene == 2 && sceneTimeout <= 0.0f)
         {
             NextScene();
         }
