@@ -9,6 +9,7 @@ public class Game
     private bool paused = false;
 
     GameObject playerObject;
+    AudioManager audioManager;
 
     static bool initialized = false;
 
@@ -16,6 +17,8 @@ public class Game
     static int currScene = 0;
 
     static float sceneTimeout = 0.0f;
+
+    float time = 0.0f;
 
     // Use this for initialization
     void Start()
@@ -26,12 +29,15 @@ public class Game
         pauseMenu.SetActive(false);
 
         playerObject = GameObject.FindGameObjectWithTag("Player");
+        audioManager = FindObjectOfType<AudioManager>();
+        audioManager.PlayMusic(AudioManager.MusicTrack.Victory);
 
         if (!initialized)
         {
             initialized = true;
             Debug.Log("Initialized");
         }
+
     }
 
     // Update is called once per frame
@@ -110,10 +116,13 @@ public class Game
         // Change this to change how high the level is
         if (playerObject && playerObject.transform.position.y >= 35.0f)
         {
-            NextScene();
+            //NextScene();
         }
 
-        CheckForNextScene();
+        //CheckForNextScene();
+
+        time += Time.deltaTime;
+        //Debug.Log(string.Format("Time: {0}, Y: {1}", time, playerObject.transform.position.y));
     }
 
     public void GameOver()
