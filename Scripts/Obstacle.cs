@@ -29,7 +29,9 @@ public class Obstacle
     float maxDown;
 
     Rigidbody rb;
-//    SphereCollider sc;
+
+    const float windForce = 10.0f;
+    float cellWeigth;
 
 
     // Use this for initialization
@@ -37,17 +39,8 @@ public class Obstacle
     {
         rb = gameObject.GetComponent<Rigidbody>();
 
-        if (type == Type.DEAD_CELL)
-        {
-            gameObject.GetComponent<SphereCollider>().isTrigger = false;
-
-            // Hack for dealing with to powerful player.
-            rb.mass = 100;
-        }
-        
         if (type == Type.WIND)
         {
-            //gameObject.GetComponent<Rigidbody>().isKinematic = false;
             gameObject.GetComponent<Rigidbody>().useGravity = false;
         }
     }
@@ -68,27 +61,54 @@ public class Obstacle
             Player player = other.gameObject.GetComponent<Player>();
 
             if (type == Type.WATER)
+            {
                 player.MakeWet();
+            }
             else if (type == Type.DUST)
+            {
                 player.MakeInvisible();
+            }
+            else if (type == Type.WIND)
+            {
+                Rigidbody body = other.gameObject.GetComponent<Rigidbody>();
+                if (windDirection == WindDirection.LEFT)
+                {
+                    body.velocity -= new Vector3(windForce, 0.0f, 0.0f);
+                }
+                else
+                {
+                    body.velocity += new Vector3(windForce, 0.0f, 0.0f);
+                }
+            }
+            else if (type == Type.DEAD_CELL)
+            {
+                // Kill
+            }
         }
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Player") && type == Type.WIND)
+        if (other.gameObject.CompareTag("Player"))
         {
-            float windForce = 100.0f;
-            Rigidbody player = other.gameObject.GetComponent<Rigidbody>();
-            if (windDirection == WindDirection.LEFT)
+            if (type == Type.WIND)
             {
-                player.AddForce(new Vector3(-windForce, 0.0f));
+                Rigidbody body = other.gameObject.GetComponent<Rigidbody>();
+                if (windDirection == WindDirection.LEFT)
+                {
+                    body.velocity += new Vector3(windForce, 0.0f, 0.0f);
+                }
+                else
+                {
+                    body.velocity -= new Vector3(windForce, 0.0f, 0.0f);
+                }
             }
-            else
+            else if(type == Type.DEAD_CELL)
             {
-                player.AddForce(new Vector3(windForce, 0.0f));
-            }
+                Game game = FindObjectOfType<Game>();
+                game.GameOver();
 
+            }
         }
     }
 }

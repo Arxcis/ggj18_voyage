@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KeyHandler : MonoBehaviour {
+public class Game : MonoBehaviour
+{
 
     private GameObject helpMenu;
     private GameObject pauseMenu;
@@ -10,23 +11,28 @@ public class KeyHandler : MonoBehaviour {
 
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         helpMenu = GameObject.FindGameObjectWithTag("help-menu");
         pauseMenu = GameObject.FindGameObjectWithTag("pause-menu");
         helpMenu.SetActive(false);
+        pauseMenu.SetActive(false);
     }
-    
+
     // Update is called once per frame
-    void Update () {
-        
-        if (Input.GetKeyDown(KeyCode.Q)) {
+    void Update()
+    {
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
             Debug.Log("key Q");
 
             // @doc https://docs.unity3d.com/ScriptReference/Application.Quit.html - 27.01
             Application.Quit();
         }
 
-        if (Input.GetKeyDown(KeyCode.R)) {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
             Debug.Log("key R");
 
             // Load current scene
@@ -41,18 +47,22 @@ public class KeyHandler : MonoBehaviour {
             */
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape)) {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
             Debug.Log("key ESC");
         }
 
         //
         // TOGGLE HELP MENU
         //
-        if (Input.GetKeyDown(KeyCode.Escape) && !helpMenu.activeSelf) {
+        if (Input.GetKeyDown(KeyCode.Escape) && !helpMenu.activeSelf)
+        {
             // @doc https://docs.unity3d.com/ScriptReference/GameObject.SetActive.html- 27.01.18
             Debug.Log("Showing menu");
             helpMenu.SetActive(true);
-        } else if (Input.GetKeyDown(KeyCode.Escape) && helpMenu.activeSelf){
+        }
+        else if (Input.GetKeyDown(KeyCode.Escape) && helpMenu.activeSelf)
+        {
             Debug.Log("Hiding menu");
             helpMenu.SetActive(false);
         }
@@ -60,20 +70,23 @@ public class KeyHandler : MonoBehaviour {
         //
         // TOGGLE PAUSE
         //
-        if (Input.GetKeyDown(KeyCode.P) && !paused) {
+        if (Input.GetKeyDown(KeyCode.P) && !paused)
+        {
             paused = true;
             // @doc - https://answers.unity.com/answers/1231035/view.html - 27.01.2018
 
             pauseMenu.SetActive(true);
             Time.timeScale = 0;
             Debug.Log("PAUSING GAME");
-        } else if (Input.GetKeyDown(KeyCode.P) && paused) {
+        }
+        else if (Input.GetKeyDown(KeyCode.P) && paused)
+        {
 
-            paused = false; 
-            
+            paused = false;
+
             pauseMenu.SetActive(false);
             Time.timeScale = 1;
-            Debug.Log("RUNNING GAME");            
+            Debug.Log("RUNNING GAME");
         }
         /*
         if (Input.GetKey(KeyCode.Keypad1)) {
@@ -83,5 +96,11 @@ public class KeyHandler : MonoBehaviour {
             Debug.Log("key 2");
         }
         */
+    }
+
+    public void GameOver()
+    {
+        Debug.Log("Game Over!");
+        // Push us to game over scene
     }
 }
