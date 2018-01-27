@@ -9,7 +9,7 @@ public class AudioManager
     {
         Menu,
         GameOver,
-        Victory,
+        Level_1,
         None,
     };
 
@@ -22,7 +22,7 @@ public class AudioManager
     {
         musicSource = gameObject.AddComponent<AudioSource>();
         musicSource.loop = true;
-        musicSource.mute = true;
+        //musicSource.mute = true;
 
         sfxSource = gameObject.AddComponent<AudioSource>();
         sfxSource.loop = false;
@@ -33,6 +33,10 @@ public class AudioManager
             if (value != MusicTrack.None)
             {
                 var val = Resources.Load<AudioClip>(value.ToString());
+                if (!val)
+                {
+                    Debug.LogWarningFormat("Could not load file {0}", value.ToString());
+                }
                 musicTracks[value] = val;
             }
         }

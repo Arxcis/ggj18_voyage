@@ -1,19 +1,29 @@
 ﻿using UnityEngine.SceneManagement;
 using UnityEngine;
 
-public class Game 
+public class Game
     : MonoBehaviour
 {
     private GameObject helpMenu;
     private GameObject pauseMenu;
     private bool paused = false;
 
-    GameObject playerObject;
     AudioManager audioManager;
 
     static bool initialized = false;
 
     string[] scenes = new string[] { "splash", "level_1_intro", "level_1", "level_2_intro",  "level_2", "outro"};
+    AudioManager.MusicTrack[] tracks = new AudioManager.MusicTrack[]
+    {
+        AudioManager.MusicTrack.Menu,
+        AudioManager.MusicTrack.Level_1,
+        AudioManager.MusicTrack.Level_1,
+        AudioManager.MusicTrack.Level_1,
+        AudioManager.MusicTrack.Level_1,
+        AudioManager.MusicTrack.Level_1,
+    };
+
+
     static int currScene = 0;
 
     static float sceneTimeout = 0.0f;
@@ -29,16 +39,14 @@ public class Game
         helpMenu.SetActive(false);
         pauseMenu.SetActive(false);
 
-        playerObject = GameObject.FindGameObjectWithTag("Player");
         audioManager = FindObjectOfType<AudioManager>();
-        audioManager.PlayMusic(AudioManager.MusicTrack.Victory);
+        audioManager.PlayMusic(tracks[currScene]);
 
         if (!initialized)
         {
             initialized = true;
             Debug.Log("Initialized");
         }
-
     }
 
     // Update is called once per frame
@@ -118,12 +126,7 @@ public class Game
         // Check if map finished
         //
         // Change this to change how high the level is
-        if (playerObject && playerObject.transform.position.y >= 35.0f)
-        {
-            //NextScene();
-        }
-
-        //CheckForNextScene();
+        CheckForNextScene();
 
         time += Time.deltaTime;
         //Debug.Log(string.Format("Time: {0}, Y: {1}", time, playerObject.transform.position.y));
