@@ -43,7 +43,6 @@ public class Player : MonoBehaviour
         wetScale = 1.0f;
 
         windVec = new Vector3();
-        controlsVec = new Vector3();
 
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         sprites = Resources.LoadAll<Sprite>("virus-sprite");
