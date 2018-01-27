@@ -5,12 +5,14 @@ using UnityEngine;
 public class KeyHandler : MonoBehaviour {
 
     private GameObject helpMenu;
+    private GameObject pauseMenu;
     private bool paused = false;
 
 
     // Use this for initialization
     void Start () {
         helpMenu = GameObject.FindGameObjectWithTag("help-menu");
+        pauseMenu = GameObject.FindGameObjectWithTag("pause-menu");
         helpMenu.SetActive(false);
     }
     
@@ -61,10 +63,15 @@ public class KeyHandler : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.P) && !paused) {
             paused = true;
             // @doc - https://answers.unity.com/answers/1231035/view.html - 27.01.2018
+
+            pauseMenu.SetActive(true);
             Time.timeScale = 0;
             Debug.Log("PAUSING GAME");
         } else if (Input.GetKeyDown(KeyCode.P) && paused) {
+
             paused = false; 
+            
+            pauseMenu.SetActive(false);
             Time.timeScale = 1;
             Debug.Log("RUNNING GAME");            
         }
