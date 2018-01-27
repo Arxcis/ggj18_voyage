@@ -62,10 +62,12 @@ public class Obstacle
 
             if (type == Type.WATER)
             {
+                Debug.Log("Collision with water");
                 player.MakeWet();
             }
             else if (type == Type.DUST)
             {
+                Debug.Log("Collision with Dust");
                 player.MakeInvisible();
             }
             else if (type == Type.WIND)
@@ -73,6 +75,7 @@ public class Obstacle
                 Rigidbody body = other.gameObject.GetComponent<Rigidbody>();
                 if (windDirection == WindDirection.LEFT)
                 {
+                    // BUGGG!! This f
                     body.velocity -= new Vector3(windForce, 0.0f, 0.0f);
                 }
                 else
@@ -82,7 +85,8 @@ public class Obstacle
             }
             else if (type == Type.DEAD_CELL)
             {
-                // Kill
+                Game game = FindObjectOfType<Game>();
+                game.GameOver();
             }
         }
     }
@@ -102,12 +106,6 @@ public class Obstacle
                 {
                     body.velocity -= new Vector3(windForce, 0.0f, 0.0f);
                 }
-            }
-            else if(type == Type.DEAD_CELL)
-            {
-                Game game = FindObjectOfType<Game>();
-                game.GameOver();
-
             }
         }
     }
