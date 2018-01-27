@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Obstacle 
+public class Obstacle
     : MonoBehaviour
 {
     public enum Type
@@ -24,30 +24,55 @@ public class Obstacle
     WindDirection windDirection;
 
     [SerializeField]
-    float maxDown;
+    public float maxDown;
 
     Rigidbody rb;
 
     const float windForce = 10.0f;
 
+    // Only for wind
+    SpriteRenderer renderer;
+    Sprite[] sprites;
+    float animationTimer;
+    int currSprite;
+    int spriteOffset;
 
     // Use this for initialization
     void Start()
     {
-        rb = gameObject.GetComponent<Rigidbody>();
 
         if (type == Type.WIND)
         {
-            gameObject.GetComponent<Rigidbody>().useGravity = false;
+            renderer = gameObject.GetComponent<SpriteRenderer>();
+            sprites = Resources.LoadAll<Sprite>("spritesheet-wind");
+            renderer.sprite = sprites[0];
+            spriteOffset = (windDirection == WindDirection.LEFT)
+                         ? 0
+                         : 3;
+        }
+        else
+        {
+            rb = gameObject.GetComponent<Rigidbody>();
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (rb.velocity.y < -maxDown && type != Type.WIND)
+        if (type != Type.WIND && rb.velocity.y < -maxDown)
         {
             rb.velocity = new Vector3(0.0f, -maxDown, 0.0f);
+        }
+
+        if (type == Type.WIND)
+        {
+            animationTimer += Time.deltaTime;
+            if (animationTimer >= 0.15f)
+            {
+                currSprite = ((currSprite + 1) % 3) + spriteOffset;
+                renderer.sprite = sprites[currSprite];
+                animationTimer = 0.0f;
+            }
         }
     }
 
