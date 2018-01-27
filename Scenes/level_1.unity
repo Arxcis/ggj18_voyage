@@ -216,7 +216,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &158670983
 Transform:
   m_ObjectHideFlags: 0
@@ -1590,6 +1590,47 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fc38d06f4a9a94fde928b5c1a3df581d, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1219963809
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1219963811}
+  - component: {fileID: 1219963810}
+  m_Layer: 0
+  m_Name: water-pool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1219963810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1219963809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c288344129039ab40821a9624c45e788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  template: {fileID: 1761451305}
+--- !u!4 &1219963811
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1219963809}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.46, y: 137.35, z: -0.6235432}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1259565331
 GameObject:
   m_ObjectHideFlags: 0
@@ -2420,6 +2461,11 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6f7e1e9ef4d5abd4ea00646498e9ec8a, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1761451305 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1564909143883448, guid: 6f7e1e9ef4d5abd4ea00646498e9ec8a,
+    type: 2}
+  m_PrefabInternal: {fileID: 1761451304}
 --- !u!4 &1818539717 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4126320404603084, guid: 6f7e1e9ef4d5abd4ea00646498e9ec8a,

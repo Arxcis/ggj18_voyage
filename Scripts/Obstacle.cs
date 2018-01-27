@@ -24,12 +24,13 @@ public class Obstacle
     WindDirection windDirection;
 
     [SerializeField]
-    float maxDown;
+    public float maxDown;
 
     Rigidbody rb;
 
     const float windForce = 10.0f;
 
+    
 
     // Use this for initialization
     void Start()
@@ -39,6 +40,7 @@ public class Obstacle
         if (type == Type.WIND)
         {
             gameObject.GetComponent<Rigidbody>().useGravity = false;
+            // Add component for rendering sprites
         }
     }
 
