@@ -138,7 +138,6 @@ public class Game
     private void CheckForNextScene()
     {
         sceneTimeout -= Time.deltaTime;
-        Debug.Log(sceneTimeout);
         // For Splash screen to start the game
         if (currScene == 0 && Input.GetKeyUp("space"))
         {
@@ -146,7 +145,7 @@ public class Game
             return;
         }
 
-        // Timeout before going to level 1
+        // All scenes that require interactions happens to be divisable by 2.
         if (currScene % 2 != 0 && sceneTimeout <= 0.0f)
         {
             NextScene();

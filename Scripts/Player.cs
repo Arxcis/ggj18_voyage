@@ -23,6 +23,9 @@ public class Player : MonoBehaviour
     public float rightSpeed;
     public float thrust;
 
+    Vector3 controlsVec;
+    Vector3 windVec;
+
     // Use this for initialization
     void Start()
     {
@@ -32,44 +35,44 @@ public class Player : MonoBehaviour
         camera = gameObject.GetComponentInChildren<Camera>();
 
         wetScale = 1.0f;
+
+        windVec = new Vector3();
+        controlsVec = new Vector3();
     }
 
     // Update is called once per frame
     void Update()
     {
         // Key checking
+
         if (Input.GetKey("up"))
         {
-            rb.AddForce(transform.up * thrust * wetScale);
+            rb.AddForce(transform.up * thrust);
         }
 
-        if (rb.velocity.y > maxSpeedUp * wetScale)
+        Vector3 temp = new Vector3(0.0f, rb.velocity.y, 0.0f);
+        if (rb.velocity.y > maxSpeedUp)
         {
-            rb.velocity = new Vector3(rb.velocity.x, maxSpeedUp * wetScale, 0.0f);
+            temp.y = maxSpeedUp;
+        }
+        else if (rb.velocity.y < maxSpeedDown)
+        {
+            temp.y = maxSpeedDown;
         }
 
-        if (rb.velocity.y < maxSpeedDown * wetScale)
+        if (Input.GetKey("left"))
         {
-            rb.velocity = new Vector3(rb.velocity.x, maxSpeedDown * wetScale, 0.0f);
+            temp.x = leftSpeed;
+        }
+        if (Input.GetKey("right"))
+        {
+            temp.x = rightSpeed;
         }
 
-        if (Input.GetKeyDown("left"))
-        {
-            rb.velocity += new Vector3(leftSpeed * wetScale, rb.velocity.y * wetScale, 0.0f);
-        }
-        if (Input.GetKeyUp("left"))
-        {
-            rb.velocity -= new Vector3(leftSpeed * wetScale, rb.velocity.y * wetScale, 0.0f);
-        }
+        temp += windVec;
+        temp *= wetScale;
 
-        if (Input.GetKeyDown("right"))
-        {
-            rb.velocity += new Vector3(rightSpeed * wetScale, rb.velocity.y * wetScale, 0.0f);
-        }
-        if (Input.GetKeyUp("right"))
-        {
-            rb.velocity -= new Vector3(rightSpeed * wetScale, rb.velocity.y * wetScale, 0.0f);
-        }
+        rb.velocity = temp;
 
         // Effects checking
         invisibleTimeout -= Time.deltaTime;
@@ -100,5 +103,27 @@ public class Player : MonoBehaviour
         wetTimeout = 4.0f;
         wet = true;
         wetScale = 0.25f;
+    }
+
+    public void EnterWind(Obstacle.WindDirection windDirection)
+    {
+        Debug.Log("Enter wind");
+
+        if (windDirection == Obstacle.WindDirection.LEFT)
+        {
+            windVec.x = -1.0f;
+        }
+        else
+        {
+            windVec.x = 1.0f;
+        }
+    }
+
+    public void ExitWind()
+    {
+        Debug.Log("Exit wind");
+        windVec.x = 0.0f;
+        windVec.y = 0.0f;
+        windVec.z = 0.0f;
     }
 }

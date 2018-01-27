@@ -31,7 +31,6 @@ public class Obstacle
     Rigidbody rb;
 
     const float windForce = 10.0f;
-    float cellWeigth;
 
 
     // Use this for initialization
@@ -72,16 +71,7 @@ public class Obstacle
             }
             else if (type == Type.WIND)
             {
-                Rigidbody body = other.gameObject.GetComponent<Rigidbody>();
-                if (windDirection == WindDirection.LEFT)
-                {
-                    // BUGGG!! This f
-                    body.velocity -= new Vector3(windForce, 0.0f, 0.0f);
-                }
-                else
-                {
-                    body.velocity += new Vector3(windForce, 0.0f, 0.0f);
-                }
+                player.EnterWind(windDirection);
             }
             else if (type == Type.DEAD_CELL)
             {
@@ -97,15 +87,8 @@ public class Obstacle
         {
             if (type == Type.WIND)
             {
-                Rigidbody body = other.gameObject.GetComponent<Rigidbody>();
-                if (windDirection == WindDirection.LEFT)
-                {
-                    body.velocity += new Vector3(windForce, 0.0f, 0.0f);
-                }
-                else
-                {
-                    body.velocity -= new Vector3(windForce, 0.0f, 0.0f);
-                }
+                Player player = other.gameObject.GetComponent<Player>();
+                player.ExitWind();
             }
         }
     }
