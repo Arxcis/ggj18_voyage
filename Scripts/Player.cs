@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    MeshRenderer meshRenderer;
     float invisibleTimeout;
     float wetTimeout;
     float wetScale;
@@ -14,28 +13,40 @@ public class Player : MonoBehaviour
 
     Camera camera;
 
-
     // @doc - https://docs.unity3d.com/ScriptReference/Rigidbody.AddForce.html - 26.01.18
     public Rigidbody rb;
     public float maxSpeedUp;
     public float maxSpeedDown;
+    public float extraSpeedDiving;
     public float leftSpeed;
     public float rightSpeed;
     public float thrust;
 
     Vector3 windVec;
 
+
+
+    // SPRITE DATA 
+    // @doc https://docs.unity3d.com/ScriptReference/SpriteRenderer-sprite.html - 27.01.18
+    private Sprite[] sprites;
+    private SpriteRenderer spriteRenderer;
+
+    private const int SPRITE_LEGS_OUT = 0;
+    private const int SPRITE_LEGS_IN = 1;
+
     // Use this for initialization
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        meshRenderer = gameObject.GetComponent<MeshRenderer>();
-
         camera = gameObject.GetComponentInChildren<Camera>();
 
         wetScale = 1.0f;
 
         windVec = new Vector3();
+        controlsVec = new Vector3();
+
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        sprites = Resources.LoadAll<Sprite>("virus-sprite");
     }
 
     // Update is called once per frame
@@ -47,6 +58,22 @@ public class Player : MonoBehaviour
         {
             rb.AddForce(transform.up * thrust);
         }
+        if (Input.GetKeyDown("down")) 
+        {
+            maxSpeedDown += extraSpeedDiving;
+        } 
+        if (Input.GetKeyUp("down")) 
+        {
+            maxSpeedDown -= extraSpeedDiving;
+        }
+        if (Input.GetKeyDown("down") || Input.GetKeyDown("up")) 
+        {
+            spriteRenderer.sprite = sprites[SPRITE_LEGS_IN];
+        }
+        if (Input.GetKeyUp("down") || Input.GetKeyUp("up"))
+        {
+            spriteRenderer.sprite = sprites[SPRITE_LEGS_OUT];
+        } 
 
         Vector3 temp = new Vector3(0.0f, rb.velocity.y, 0.0f);
         if (rb.velocity.y > maxSpeedUp)
@@ -74,9 +101,9 @@ public class Player : MonoBehaviour
 
         // Effects checking
         invisibleTimeout -= Time.deltaTime;
-        if (meshRenderer.enabled == false && invisibleTimeout <= 0.0f)
+        if (spriteRenderer.enabled == false && invisibleTimeout <= 0.0f)
         {
-            meshRenderer.enabled = true;
+            spriteRenderer.enabled = true;
         }
 
         wetTimeout -= Time.deltaTime;
@@ -91,7 +118,7 @@ public class Player : MonoBehaviour
     public void MakeInvisible()
     {
         Debug.Log("MakeInvisible");
-        meshRenderer.enabled = false;
+        spriteRenderer.enabled = false;
         invisibleTimeout = 1.0f;
     }
 
