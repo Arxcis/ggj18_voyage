@@ -32,14 +32,6 @@ public class Toggling : MonoBehaviour
             regular.transform.position = tmp;
 
             Text t = can.GetComponent<Text>();
-            if (!t)
-            {
-                Debug.Log("Fuck");
-            }
-            else
-            {
-                Debug.Log("yay");
-            }
             t.text = "Smallpox killed 500 000 001 people in the 20th century alone";
 
 
