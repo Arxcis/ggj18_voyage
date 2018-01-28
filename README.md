@@ -6,3 +6,7 @@
 
 This project is built in Unity. Just open the project there and you will be good ;)
 
+
+### Github repo
+
+https://github.com/Per-Morten/ggj18_voyage
