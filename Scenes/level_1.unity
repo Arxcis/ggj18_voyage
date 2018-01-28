@@ -832,7 +832,7 @@ SpriteRenderer:
   m_Size: {x: 2.6, y: 2.61}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
 --- !u!1 &665309771
 GameObject:
@@ -1996,7 +1996,13 @@ Prefab:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1776255621}
-    m_RemovedComponents: []
+    - target: {fileID: 114184700048142470, guid: cf91413818120439f90a5f2731369d66,
+        type: 2}
+      propertyPath: m_ScaleFactor
+      value: 0.5
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 114622680143888038, guid: cf91413818120439f90a5f2731369d66, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: cf91413818120439f90a5f2731369d66, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1759373795
