@@ -8,9 +8,10 @@ public class AudioManager
 	public enum MusicTrack
     {
         Menu,
-        GameOver,
+        Gameover,
         Level_1,
         Pause,
+        Happyending,
         None,
     };
 
@@ -23,13 +24,14 @@ public class AudioManager
         Crashwav_3,
         Crashwav_4,
         Explosionwav,
+        Infectionspreads,
     }
 
     public void Awake()
     {
         musicSource = gameObject.AddComponent<AudioSource>();
         musicSource.loop = true;
-        musicSource.mute = true;
+//        musicSource.mute = true;
 
         sfxSource = gameObject.AddComponent<AudioSource>();
         sfxSource.loop = false;
