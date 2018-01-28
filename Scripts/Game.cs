@@ -145,6 +145,11 @@ public class Game
         SceneManager.LoadScene(scene);
     }
 
+    public bool IsLevel2()
+    {
+        return currScene == 3;
+    }
+
     private void CheckForNextScene()
     {
         sceneTimeout -= Time.deltaTime;
