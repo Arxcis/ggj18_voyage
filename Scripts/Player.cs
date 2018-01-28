@@ -43,7 +43,7 @@ public class Player : MonoBehaviour
         windVec = new Vector3();
 
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-        sprites = Resources.LoadAll<Sprite>("virus-sprite");
+        sprites = Resources.LoadAll<Sprite>("sprites/virus-sprite");
     }
 
     // Update is called once per frame
