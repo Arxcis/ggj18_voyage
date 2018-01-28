@@ -62,6 +62,11 @@ public class Obstacle
         {
             rotationVec = new Vector3(-1.0f, 0.5f, 0.0f);
         }
+
+        if (type != Type.WIND && type != Type.WATER)
+        {
+            rb.useGravity = false;
+        }
     }
 
     // Update is called once per frame
@@ -81,6 +86,8 @@ public class Obstacle
                 renderer.sprite = sprites[currSprite];
                 animationTimer = 0.0f;
             }
+
+            Debug.Log(transform.position);
         }
 
         if (type == Type.DEAD_CELL)
