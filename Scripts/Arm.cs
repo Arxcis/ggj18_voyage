@@ -11,11 +11,11 @@ public class Arm : MonoBehaviour {
     private Renderer rend;
     
     void Start() {
-        rend = GetComponent<Renderer>();
-        rend.material = material1;
+//        rend = GetComponent<Renderer>();
+//        rend.material = material1;
     }
     void Update() {
-        float lerp = Mathf.PingPong(Time.time, duration) / duration;
-        rend.material.Lerp(material1, material2, lerp);    
+//        float lerp = Mathf.PingPong(Time.time, duration) / duration;
+//        rend.material.Lerp(material1, material2, lerp);    
     }
 }
