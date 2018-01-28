@@ -47,7 +47,7 @@ public class Obstacle
         if (type == Type.WIND)
         {
             renderer = gameObject.GetComponent<SpriteRenderer>();
-            sprites = Resources.LoadAll<Sprite>("spritesheet-wind");
+            sprites = Resources.LoadAll<Sprite>("sprites/spritesheet-wind");
             renderer.sprite = sprites[0];
             spriteOffset = (windDirection == WindDirection.LEFT)
                          ? 0

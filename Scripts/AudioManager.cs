@@ -10,12 +10,19 @@ public class AudioManager
         Menu,
         GameOver,
         Level_1,
+        Pause,
         None,
     };
 
 	public enum SfxTrack
     {
         ButtonPress,
+        Begin,
+        Crashwav_1,
+        Crashwav_2,
+        Crashwav_3,
+        Crashwav_4,
+        Explosionwav,
     }
 
     public void Awake()
@@ -32,7 +39,7 @@ public class AudioManager
         {
             if (value != MusicTrack.None)
             {
-                var val = Resources.Load<AudioClip>(value.ToString());
+                var val = Resources.Load<AudioClip>("sounds/" + value.ToString());
                 if (!val)
                 {
                     Debug.LogWarningFormat("Could not load file {0}", value.ToString());
