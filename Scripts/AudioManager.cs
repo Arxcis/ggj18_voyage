@@ -10,21 +10,20 @@ public class AudioManager
         Menu,
         Gameover,
         Level_1,
-        Pause,
         Happyending,
+        Infectionspreads,
         None,
     };
 
 	public enum SfxTrack
     {
-        ButtonPress,
         Begin,
+        Pause,
         Crashwav_1,
         Crashwav_2,
         Crashwav_3,
         Crashwav_4,
         Explosionwav,
-        Infectionspreads,
     }
 
     public void Awake()
@@ -35,6 +34,7 @@ public class AudioManager
 
         sfxSource = gameObject.AddComponent<AudioSource>();
         sfxSource.loop = false;
+        sfxSource.volume = 0.15f;
 
         musicTracks = new Dictionary<MusicTrack, AudioClip>();
         foreach (MusicTrack value in Enum.GetValues(typeof(MusicTrack)))
@@ -53,7 +53,8 @@ public class AudioManager
         sfxTracks = new Dictionary<SfxTrack, AudioClip>();
         foreach (SfxTrack value in Enum.GetValues(typeof(SfxTrack)))
         {
-            sfxTracks[value] = Resources.Load<AudioClip>(value.ToString());
+            sfxTracks[value] = Resources.Load<AudioClip>("sounds/" + value.ToString());
+
         }
 
     }

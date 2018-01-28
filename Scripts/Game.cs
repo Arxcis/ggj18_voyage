@@ -19,8 +19,7 @@ public class Game
         AudioManager.MusicTrack.Level_1,
         AudioManager.MusicTrack.Level_1,
         AudioManager.MusicTrack.Level_1,
-        AudioManager.MusicTrack.Level_1,
-        AudioManager.MusicTrack.Level_1,
+        AudioManager.MusicTrack.Happyending,
     };
 
 
@@ -96,7 +95,7 @@ public class Game
         //
         // TOGGLE HELP MENU
         //
-        if (Input.GetKeyDown(KeyCode.Escape)) // && !helpMenu.activeSelf)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (!helpMenu)
             {
@@ -105,6 +104,7 @@ public class Game
             bool active = helpMenu.activeSelf;
             helpMenu.SetActive(!active);
 
+            audioManager.PlaySoundEffect(AudioManager.SfxTrack.Pause);
             if (!active)
             {
                Time.timeScale = 0;
@@ -128,6 +128,7 @@ public class Game
     public void GameOver()
     {
         Debug.Log("Game Over!");
+        //audioManager.PlayMusic(AudioManager.MusicTrack.Gameover);
         GotoScene("game_over");
     }
 
@@ -156,6 +157,7 @@ public class Game
         // For Splash screen to start the game
         if (currScene == 0 && Input.GetKeyUp("space"))
         {
+            audioManager.PlaySoundEffect(AudioManager.SfxTrack.Begin);
             NextScene();
             return;
         }

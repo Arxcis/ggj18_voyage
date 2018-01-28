@@ -34,6 +34,7 @@ public class Toggling : MonoBehaviour
             Text t = can.GetComponent<Text>();
             t.text = "Smallpox killed 500 000 001 people in the 20th century alone";
 
+            FindObjectOfType<Game>().GetComponent<AudioManager>().PlayMusic(AudioManager.MusicTrack.Infectionspreads);
 
         }
     }

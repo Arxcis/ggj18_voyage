@@ -40,9 +40,14 @@ public class Obstacle
     // Only for DEAD_CELL
     Vector3 rotationVec;
 
+    int audioTrack = 0;
+
+    AudioManager audioManager;
+
     // Use this for initialization
     void Start()
     {
+        audioManager = FindObjectOfType<Game>().GetComponent<AudioManager>();
 
         if (type == Type.WIND)
         {
@@ -101,6 +106,11 @@ public class Obstacle
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            audioTrack = (audioTrack + 1) % 4;
+            var track = AudioManager.SfxTrack.Crashwav_1 + audioTrack;
+            audioManager.PlaySoundEffect(track);
+
+
             Player player = other.gameObject.GetComponent<Player>();
 
             if (type == Type.WATER)

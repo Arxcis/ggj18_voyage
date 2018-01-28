@@ -39,6 +39,9 @@ public class TakeOff : MonoBehaviour
                 clone.GetComponent<Rigidbody>().velocity = new Vector3(Random.Range(-10.0f, 10.0f), Random.Range(0.0f, 20.0f), Random.Range(-10.0f, 10.0f));
             }
             timeElapsed = 0.0f;
+
+            FindObjectOfType<Game>().GetComponent<AudioManager>().PlaySoundEffect(AudioManager.SfxTrack.Explosionwav);
+
         }
 
 
