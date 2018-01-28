@@ -84,6 +84,15 @@ public class Game
             NextScene();
         }
 
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (SceneManager.GetActiveScene().name == "game_over")
+            {
+                currScene--;
+                NextScene();
+            }
+        }
+
         //
         // TOGGLE HELP MENU
         //
