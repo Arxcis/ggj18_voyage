@@ -32,7 +32,7 @@ public class Toggling : MonoBehaviour
             regular.transform.position = tmp;
 
             Text t = can.GetComponent<Text>();
-            t.text = "Smallpox killed 500 000 001 people in the 20th century alone";
+            t.text = "Smallpox killed 500 000 001 people since 1900";
 
             FindObjectOfType<Game>().GetComponent<AudioManager>().PlayMusic(AudioManager.MusicTrack.Infectionspreads);
 

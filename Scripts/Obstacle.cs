@@ -40,7 +40,7 @@ public class Obstacle
     // Only for DEAD_CELL
     Vector3 rotationVec;
 
-    int audioTrack = 0;
+    AudioManager.SfxTrack audioTrack = AudioManager.SfxTrack.Crashwav_1;
 
     AudioManager audioManager;
 
@@ -106,9 +106,12 @@ public class Obstacle
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            audioTrack = (audioTrack + 1) % 4;
-            var track = AudioManager.SfxTrack.Crashwav_1 + audioTrack;
-            audioManager.PlaySoundEffect(track);
+            audioTrack++;
+            if (audioTrack > AudioManager.SfxTrack.Crashwav_4)
+            {
+                audioTrack = AudioManager.SfxTrack.Crashwav_1;
+            }
+            audioManager.PlaySoundEffect(audioTrack);
 
 
             Player player = other.gameObject.GetComponent<Player>();

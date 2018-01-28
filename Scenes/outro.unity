@@ -620,7 +620,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Smallpox killed 500 000 000 people in the 20th century alone
+  m_Text: Smallpox killed 500 000 001 people since 1900
 --- !u!222 &1128671479
 CanvasRenderer:
   m_ObjectHideFlags: 0
