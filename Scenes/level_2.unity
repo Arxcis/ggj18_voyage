@@ -1170,9 +1170,10 @@ Prefab:
     - target: {fileID: 114184700048142470, guid: cf91413818120439f90a5f2731369d66,
         type: 2}
       propertyPath: m_ScaleFactor
-      value: 1.47
+      value: 0.4
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114622680143888038, guid: cf91413818120439f90a5f2731369d66, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: cf91413818120439f90a5f2731369d66, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &722281519

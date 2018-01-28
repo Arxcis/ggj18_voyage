@@ -7,8 +7,8 @@ public class Game
 {
     private GameObject helpMenu;
 
-    AudioManager audioManager;
-    Game instance;
+    static AudioManager audioManager;
+    static Game instance;
 
     static bool initialized = false;
 
@@ -16,6 +16,7 @@ public class Game
     AudioManager.MusicTrack[] tracks = new AudioManager.MusicTrack[]
     {
         AudioManager.MusicTrack.Menu,
+        AudioManager.MusicTrack.Level_1,
         AudioManager.MusicTrack.Level_1,
         AudioManager.MusicTrack.Level_1,
         AudioManager.MusicTrack.Level_1,
@@ -46,9 +47,11 @@ public class Game
 
         if (this != instance)
         {
-            Debug.Log("Destroying");
+            instance.helpMenu = this.helpMenu;
+            //Debug.Log("Destroying");
             Destroy(this);
         }
+
     }
 
     void Awake()
@@ -79,6 +82,15 @@ public class Game
         {
             currScene--;
             NextScene();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (SceneManager.GetActiveScene().name == "game_over")
+            {
+                currScene--;
+                NextScene();
+            }
         }
 
         //
