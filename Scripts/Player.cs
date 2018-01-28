@@ -22,7 +22,7 @@ public class Player : MonoBehaviour
 
     Vector3 windVec;
 
-
+    Game game;
 
     // SPRITE DATA 
     // @doc https://docs.unity3d.com/ScriptReference/SpriteRenderer-sprite.html - 27.01.18
@@ -44,6 +44,8 @@ public class Player : MonoBehaviour
 
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         sprites = Resources.LoadAll<Sprite>("sprites/virus-sprite");
+
+        game = FindObjectOfType<Game>();
     }
 
     // Update is called once per frame
@@ -65,11 +67,17 @@ public class Player : MonoBehaviour
         }
         if (Input.GetKeyDown("down") || Input.GetKeyDown("up")) 
         {
-            spriteRenderer.sprite = sprites[SPRITE_LEGS_IN];
+            if (game.IsLevel2())
+                spriteRenderer.sprite = sprites[SPRITE_LEGS_IN + 2];
+            else
+                spriteRenderer.sprite = sprites[SPRITE_LEGS_IN];
         }
         if (Input.GetKeyUp("down") || Input.GetKeyUp("up"))
         {
-            spriteRenderer.sprite = sprites[SPRITE_LEGS_OUT];
+            if (game.IsLevel2())
+                spriteRenderer.sprite = sprites[SPRITE_LEGS_OUT + 2];
+            else
+                spriteRenderer.sprite = sprites[SPRITE_LEGS_OUT];
         } 
 
         Vector3 temp = new Vector3(0.0f, rb.velocity.y, 0.0f);
