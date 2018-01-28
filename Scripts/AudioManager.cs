@@ -29,7 +29,7 @@ public class AudioManager
     {
         musicSource = gameObject.AddComponent<AudioSource>();
         musicSource.loop = true;
-        //musicSource.mute = true;
+        musicSource.mute = true;
 
         sfxSource = gameObject.AddComponent<AudioSource>();
         sfxSource.loop = false;

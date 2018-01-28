@@ -6,8 +6,6 @@ public class Game
     : MonoBehaviour
 {
     private GameObject helpMenu;
-    private GameObject pauseMenu;
-    private bool paused = false;
 
     AudioManager audioManager;
     Game instance;
@@ -34,25 +32,22 @@ public class Game
     // Use this for initialization
     void Start()
     {
-        helpMenu = GameObject.FindGameObjectWithTag("help-menu");
-        pauseMenu = GameObject.FindGameObjectWithTag("pause-menu");
         if (!initialized)
         {
+
             instance = this;
             audioManager = gameObject.AddComponent<AudioManager>();
             audioManager.PlayMusic(tracks[currScene]);
 
-            if (!initialized)
-            {
-                initialized = true;
-                Debug.Log("Initialized");
-            }
+            initialized = true;
+            Debug.Log("Initialized");
 
             DontDestroyOnLoad(gameObject);
         }
 
         if (this != instance)
         {
+            Debug.Log("Destroying");
             Destroy(this);
         }
     }
@@ -60,17 +55,14 @@ public class Game
     void Awake()
     {
         helpMenu = GameObject.FindGameObjectWithTag("help-menu");
-        pauseMenu = GameObject.FindGameObjectWithTag("pause-menu");
-
         try
-            {
-                helpMenu.SetActive(false);
-                pauseMenu.SetActive(false);
-            }
-            catch (Exception e)
-            {
-                Debug.LogWarning("Could not setActive help and pausemenu");
-            }
+        {
+            helpMenu.SetActive(false);
+        }
+        catch (Exception e)
+        {
+            Debug.LogWarning("Could not setActive help and pausemenu");
+        }
     }
 
     // Update is called once per frame
@@ -90,46 +82,22 @@ public class Game
             NextScene();
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Debug.Log("key ESC");
-        }
-
         //
         // TOGGLE HELP MENU
         //
-        if (Input.GetKeyDown(KeyCode.Escape) && !helpMenu.activeSelf)
+        if (Input.GetKeyDown(KeyCode.Escape)) // && !helpMenu.activeSelf)
         {
-            // @doc https://docs.unity3d.com/ScriptReference/GameObject.SetActive.html- 27.01.18
-            Debug.Log("Showing menu");
-            helpMenu.SetActive(true);
-        }
-        else if (Input.GetKeyDown(KeyCode.Escape) && helpMenu.activeSelf)
-        {
-            Debug.Log("Hiding menu");
-            helpMenu.SetActive(false);
-        }
+            bool active = helpMenu.activeSelf;
+            helpMenu.SetActive(!active);
 
-        //
-        // TOGGLE PAUSE
-        //
-        if (Input.GetKeyDown(KeyCode.P) && !paused)
-        {
-            paused = true;
-            // @doc - https://answers.unity.com/answers/1231035/view.html - 27.01.2018
-
-            pauseMenu.SetActive(true);
-            Time.timeScale = 0;
-            Debug.Log("PAUSING GAME");
-        }
-        else if (Input.GetKeyDown(KeyCode.P) && paused)
-        {
-
-            paused = false;
-
-            pauseMenu.SetActive(false);
-            Time.timeScale = 1;
-            Debug.Log("RUNNING GAME");
+            if (!active)
+            {
+               Time.timeScale = 0;
+            }
+            else
+            {
+                Time.timeScale = 1;
+            }
         }
 
         //
