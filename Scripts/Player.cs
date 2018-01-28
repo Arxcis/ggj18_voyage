@@ -114,14 +114,12 @@ public class Player : MonoBehaviour
 
     public void MakeInvisible()
     {
-        Debug.Log("MakeInvisible");
         spriteRenderer.enabled = false;
         invisibleTimeout = 1.0f;
     }
 
     public void MakeWet()
     {
-        Debug.Log("MakeWet");
         wetTimeout = 4.0f;
         wet = true;
         wetScale = 0.25f;
