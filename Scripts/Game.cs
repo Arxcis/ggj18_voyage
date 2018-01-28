@@ -34,7 +34,6 @@ public class Game
     {
         if (!initialized)
         {
-
             instance = this;
             audioManager = gameObject.AddComponent<AudioManager>();
             audioManager.PlayMusic(tracks[currScene]);
@@ -87,6 +86,10 @@ public class Game
         //
         if (Input.GetKeyDown(KeyCode.Escape)) // && !helpMenu.activeSelf)
         {
+            if (!helpMenu)
+            {
+                helpMenu = GameObject.FindGameObjectWithTag("help-menu");
+            }
             bool active = helpMenu.activeSelf;
             helpMenu.SetActive(!active);
 
